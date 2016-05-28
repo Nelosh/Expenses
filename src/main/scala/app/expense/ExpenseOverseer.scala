@@ -1,4 +1,4 @@
-package expense
+package app.expense
 
 import math._
 

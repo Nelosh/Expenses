@@ -1,6 +1,6 @@
-package expense
+package app
 
-import ui.UIWindow
+import app.ui.UIWindow
 
 object Main {
     def main(args: Array[String]) = {

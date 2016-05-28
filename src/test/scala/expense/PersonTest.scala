@@ -1,5 +1,7 @@
 package expense
 
+import app.expense.{Balance, Person}
+
 class PersonTest extends MySpec {
     "A Person" should "have increased expenses after payment" in {
         val person = Person("Bob")

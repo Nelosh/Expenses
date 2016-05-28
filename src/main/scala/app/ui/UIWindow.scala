@@ -1,13 +1,13 @@
-package ui
+package app.ui
 
 import java.awt.{Dimension, Font}
 
-import expense.{Payment, ExpenseOverseer}
+import app.expense.{ExpenseOverseer, Payment}
 
 import scala.swing._
 
 class UIWindow extends MainFrame {
-    val standardFont = new Font("serif", Font.PLAIN, 50)
+    var fontSize = 50
 
     val nameField = createTextField
     val serviceField = createTextField
@@ -26,6 +26,22 @@ class UIWindow extends MainFrame {
     title = "Expense Overseer"
     contents = mainWindow
     normalizeFont(contents.head)
+
+    def standardFont = new Font("serif", Font.PLAIN, fontSize)
+
+    private def changeFontButton = Button("Change Font") {
+        changeFont()
+    }
+
+    def changeFont() {
+        val result = Dialog.showInput(contents.head, "New Font", initial=fontSize.toString)
+        result match {
+            case Some(size) =>
+                fontSize = size.toInt
+                normalizeFont(contents.head)
+            case None =>
+        }
+    }
 
     private def buttonAdd = Button("Add") {
         addPaymentFromInput()
@@ -56,7 +72,7 @@ class UIWindow extends MainFrame {
 
     private def amountIsNumber: Boolean = {
         try {
-            amountField.text.toInt
+            amountField.text.toFloat
         } catch {
             case e: NumberFormatException => return false
         }
@@ -68,10 +84,10 @@ class UIWindow extends MainFrame {
     }
 
     private def createTextField: TextField = new TextField("") {
-        maximumSize = new Dimension(Integer.MAX_VALUE, 80)
+        maximumSize = new Dimension(Integer.MAX_VALUE, fontSize * 3 / 2)
     }
 
-    private def createTextArea: TextArea = new TextArea(""){
+    private def createTextArea: TextArea = new TextArea("") {
         editable = false
     }
 
@@ -79,7 +95,7 @@ class UIWindow extends MainFrame {
         new BoxPanel(Orientation.Vertical) {
             contents += inputBox
             contents += buttonAddLine
-            contents += Swing.VStrut(50)
+            contents += Swing.VStrut(10)
             contents += outputBox
         }
     }
@@ -117,13 +133,16 @@ class UIWindow extends MainFrame {
         new BoxPanel(Orientation.Horizontal) {
             contents += buttonAdd
             contents += Swing.HGlue
+            contents += changeFontButton
         }
     }
 
     private def outputBox: BoxPanel = {
         new BoxPanel(Orientation.Horizontal) {
-            contents += paymentsArea
-            contents += Swing.HStrut(30)
+            contents += new ScrollPane(paymentsArea) {
+                horizontalScrollBarPolicy = ScrollPane.BarPolicy.Never
+            }
+            contents += Swing.HStrut(15)
             contents += solutionOutputBox
         }
     }
@@ -155,23 +174,28 @@ class UIWindow extends MainFrame {
     }
 
     private def expenseOutputBox: BoxPanel = {
-        new BoxPanel(Orientation.Horizontal) {
-            contents += new BoxPanel(Orientation.Vertical) {
+        new BoxPanel(Orientation.Vertical) {
+            contents += new BoxPanel(Orientation.Horizontal) {
                 contents += new Label("Expenses:")
-                contents += expenseArea
+                contents += Swing.HGlue
             }
-            contents += Swing.HGlue
+            contents += new ScrollPane(expenseArea) {
+                horizontalScrollBarPolicy = ScrollPane.BarPolicy.Never
+            }
         }
     }
 
     private def transactionOutputBox: BoxPanel = {
-        new BoxPanel(Orientation.Horizontal) {
-            contents += new BoxPanel(Orientation.Vertical) {
+        new BoxPanel(Orientation.Vertical) {
+            contents += new BoxPanel(Orientation.Horizontal) {
                 contents += new Label("Transaction to be made:")
-                contents += transactionArea
+                contents += Swing.HGlue
             }
-            contents += Swing.HGlue
+            contents += new ScrollPane(transactionArea) {
+                horizontalScrollBarPolicy = ScrollPane.BarPolicy.Never
+            }
         }
+
     }
 
     private def normalizeFont(component: Component): Unit = {

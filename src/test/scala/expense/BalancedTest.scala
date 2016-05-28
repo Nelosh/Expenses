@@ -1,5 +1,7 @@
 package expense
 
+import app.expense.Balance
+
 class BalancedTest extends MySpec{
     val balance = Balance("Bob", 100)
 

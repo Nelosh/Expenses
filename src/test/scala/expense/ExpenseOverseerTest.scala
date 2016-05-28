@@ -1,5 +1,7 @@
 package expense
 
+import app.expense._
+
 class ExpenseOverseerTest extends MySpec {
     val expenseOverseer = buildExpenseOverseer
 

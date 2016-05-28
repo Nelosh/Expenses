@@ -1,4 +1,4 @@
-package expense
+package app.expense
 
 case class Payment(name: String, amount: Float)
 

@@ -1,4 +1,4 @@
-package expense
+package app.expense
 
 case class Person(name: String, expense: Float = 0) {
     def paid(amount: Float): Person = Person(name, expense + amount)
