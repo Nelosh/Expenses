@@ -7,7 +7,7 @@ import app.expense.{ExpenseOverseer, Payment}
 import scala.swing._
 
 class UIWindow extends MainFrame {
-    var fontSize = 50
+    private var fontSize = 50
 
     val nameField = createTextField
     val serviceField = createTextField
@@ -38,7 +38,7 @@ class UIWindow extends MainFrame {
         result match {
             case Some(size) =>
                 if (isNumber(size)) {
-                    fontSize = size.toInt
+                    fontSize = size.toFloat.toInt
                     normalizeFont(contents.head)
                 }
             case None =>
