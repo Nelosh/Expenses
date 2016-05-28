@@ -93,6 +93,13 @@ class UIWindow extends MainFrame {
         editable = false
     }
 
+    private def normalizeFont(component: Component): Unit = {
+        component match {
+            case container: Container => container.contents.foreach(normalizeFont)
+            case _ => component.font = standardFont
+        }
+    }
+
     private def mainWindow: BoxPanel = {
         new BoxPanel(Orientation.Vertical) {
             contents += inputBox
@@ -200,11 +207,6 @@ class UIWindow extends MainFrame {
 
     }
 
-    private def normalizeFont(component: Component): Unit = {
-        component match {
-            case container: Container => container.contents.foreach(normalizeFont)
-            case _ => component.font = standardFont
-        }
-    }
+
 
 }
