@@ -42,8 +42,16 @@ class UIWindow extends MainFrame {
     private def refresh(): Unit = {
         totalLabel.text = expenseOverseer.getTotalExpense.toString
         averageLabel.text = expenseOverseer.getExpensePerPerson.toString
-        expenseArea.text = expenseOverseer.getPersons.map(x => x.name + ": " + x.expense + "$").foldLeft("")((left, right) => left + right + "\n")
-        transactionArea.text = expenseOverseer.getNecessaryTransactions.map(x => x.fromWho + " -> " + x.toWhom + ": " + x.amount + "$").foldLeft("")((left, right) => left + right + "\n")
+        expenseArea.text = formattedPersons
+        transactionArea.text = formattedTransactions
+    }
+
+    private def formattedPersons: String = {
+        expenseOverseer.getPersons.map(x => x.name + ": " + x.expense + "$").mkString("\n")
+    }
+
+    private def formattedTransactions: String = {
+        expenseOverseer.getNecessaryTransactions.map(x => x.fromWho + " -> " + x.toWhom + ": " + x.amount + "$").mkString("\n")
     }
 
     private def amountIsNumber: Boolean = {
