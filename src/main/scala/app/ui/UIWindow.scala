@@ -37,8 +37,10 @@ class UIWindow extends MainFrame {
         val result = Dialog.showInput(contents.head, "New Font", initial=fontSize.toString)
         result match {
             case Some(size) =>
-                fontSize = size.toInt
-                normalizeFont(contents.head)
+                if (isNumber(size)) {
+                    fontSize = size.toInt
+                    normalizeFont(contents.head)
+                }
             case None =>
         }
     }
@@ -48,7 +50,7 @@ class UIWindow extends MainFrame {
     }
 
     private def addPaymentFromInput(): Unit = {
-        if (inputFieldsNonEmpty && amountIsNumber) {
+        if (inputFieldsNonEmpty && isNumber(amountField.text)) {
             expenseOverseer.add(Payment(nameField.text, amountField.text.toInt))
             paymentsArea.append(nameField.text + " : " + serviceField.text + " - " + amountField.text + "$\n")
             refresh()
@@ -70,9 +72,9 @@ class UIWindow extends MainFrame {
         expenseOverseer.getNecessaryTransactions.map(x => x.fromWho + " -> " + x.toWhom + ": " + x.amount + "$").mkString("\n")
     }
 
-    private def amountIsNumber: Boolean = {
+    private def isNumber(text: String): Boolean = {
         try {
-            amountField.text.toFloat
+            text.toFloat
         } catch {
             case e: NumberFormatException => return false
         }

@@ -51,10 +51,13 @@ class ExpenseOverseer {
     private def maxAmountTransactionStage(result: List[Transaction])(debtors: List[Balance], creditors: List[Balance]): List[Transaction] = {
         val maxCreditor = maxAbsoluteBalance(creditors)
         val maxDebtor = maxAbsoluteBalance(debtors)
+
         val maxPossibleTransactionAmount = min(maxDebtor.amount, abs(maxCreditor.amount))
         val transaction = Transaction(maxDebtor.name, maxCreditor.name, maxPossibleTransactionAmount)
+
         val updatedDebtors = balanceAfterTransaction(maxPossibleTransactionAmount)(maxDebtor, debtors)
         val updatedCreditors = balanceAfterTransaction(maxPossibleTransactionAmount)(maxCreditor, creditors)
+
         formTransactions(transaction :: result)(updatedDebtors, updatedCreditors)
     }
 
