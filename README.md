@@ -1,3 +1,5 @@
+#Application description#
+
 This applications main purpose is calculating necessary transactions between friends to equalize expenses on the trip.
 
 Application presents 3 fields for inserting data.
