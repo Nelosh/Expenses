@@ -10,7 +10,7 @@ Text field for inserting servise name friend pay for (under label "Service")
 Text field for inserting amount spent on the service by th friend (under label "Amount")
 
 For adding inserted data there is button "Add". Clicking this button add data to system, which then used to recalculate result.
-If data will be inserted incorrect (e.g. One or more text fields are left empty or amount is not a number) data will system won't show any reaction, and data won't be added.
+If data will be inserted incorrectly (e.g. One or more text fields are left empty or amount is not a number) system won't show any reaction, and data won't be added.
 
 After data was inserted there are 4 helpfull areas for representing result of the calculation.
 Left area records inserted data for easier tracking.
@@ -28,7 +28,7 @@ Application code contains test for testing main method of the business logic.
 Most important class tested is ExpenseOverseer wich contains methods for calculating Transaction depenig from the payments made.
 Test create simple example of the insert data and check the result of the ExpenseOverseer methods with the expected ones.
 
-Also the are test for checkink correct work of the additional Data Structures as Person and Balance, which contain method made purely for this Data Structures convenient use. 
+Also there are test for checking correct work of the additional Data Structures as Person and Balance, which contain method made purely for this Data Structures convenient use. 
 Data Structures Payments and Transactions was not tested as they do not contain any methods at all.
 
 UIWindow was tested by hand through repetetive program runs, as this class basicly replaces Main class and do not public methods with pure functional calcultions, but directed on the User Interface only.
