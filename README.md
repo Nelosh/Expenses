@@ -18,7 +18,7 @@ Right-top show total expenses of the group and expenses considered for each pers
 Right-middle represents summary of the expenses made for every person.
 Right-bottom show transations necessary to be made (wich is the solution required by the main algorythm)
 
-Also, application have helpful button fro changin font size, made purely for conveniece adjusting visibility.
+Also, application have helpful button for changing font size, made purely for conveniece adjusting visibility.
 Clicking this button, shows additional window for inserting new size of the font (new value must be a number, any float value will be rounded)
 
 ##Testing##
